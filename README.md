@@ -4,3 +4,7 @@ This repository is meant to be used as a first draft for machine learning projec
 
 # Usage
 This repository consists of four main folders:
+ Markup : * Bullet list
+              * Nested bullet
+                  * Sub-nested bullet etc
+          * Bullet list item 2
