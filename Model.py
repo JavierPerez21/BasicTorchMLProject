@@ -4,6 +4,7 @@ import datetime
 from prettytable import PrettyTable
 import os
 import copy
+import wanbd
 
 class Model:
     def __init__(self, architecure, criterion, optim, device, model_dir, model_log=None, optimkwargs={'lr':0.1}, scheduler=None, schedulerkwargs={'gamma':0.1}):
@@ -92,6 +93,12 @@ class Model:
           now = datetime.datetime.now().timestamp()
           train_err, train_loss = self.epoch(train_loader, train=True)
           test_err, test_loss = self.epoch(test_loader)
+          wandb.log({
+              "Train error": train_err,
+              "Train loss": train_loss,
+              "Test error": test_err,
+              "Test loss": test_loss
+          })
           if self.scheduler:
               self.scheduler.step()
           torch.cuda.empty_cache()
