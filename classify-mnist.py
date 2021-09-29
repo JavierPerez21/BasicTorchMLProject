@@ -1,3 +1,5 @@
+import torchattacks as torchattacks
+
 from Architectures.CNN import *
 from Model import *
 from Dataset_generator.DatasetGenerator import *
