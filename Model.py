@@ -4,10 +4,10 @@ import datetime
 from prettytable import PrettyTable
 import os
 import copy
-import wanbd
+import torchattacks
 
 class Model:
-    def __init__(self, architecure, criterion, optim, device, model_dir, model_log=None, optimkwargs={'lr':0.1}, scheduler=None, schedulerkwargs={'gamma':0.1}):
+    def __init__(self, architecture, config):
         """
             Adapt epoch(), train(), validation_epoch() and validate() for required experiment.
 
@@ -21,50 +21,46 @@ class Model:
                 optimkwargs: dictionary of optimizer kwargs
                 schedulerkwargs: dictionary of scheduler kwargs
         """
-        self.device = device
-        self.model = architecure.to(self.device)
-        self.criterion = criterion
-        self.optimizer = optim(self.model.parameters(), **optimkwargs)
-        if scheduler:
-            self.scheduler = scheduler(self.optimizer, **schedulerkwargs)
+        self.config = config
+        self.device = self.config['device']
+        self.criterion = self.config['criterion']
+        self.model = architecture.to(self.device)
+        if self.config['model_name']:
+            self.log_path = self.config['experiment_path'] + self.config['model_name'] + ".txt"
+            self.model_path = self.config['experiment_path'] + self.config['model_name'] + ".pth"
+        elif self.config['pretrained_model']:
+            self.model_path = self.config['pretrained_model']
+            self.log_path = self.config['pretrained_model'][:-4] + ".txt"
         else:
-            self.scheduler = None
-        self.model_dir = model_dir
-        if model_log:
-            self.log_path = self.model_dir + model_log + ".txt"
-            self.model_path = self.model_dir + model_log + ".pth"
-            self.model.load_state_dict(torch.load(self.model_path))
-            with open(self.log_path, 'a') as fp:
-                fp.write(f"\n")
-                fp.write(f"\n")
-                fp.write(f"\n")
-                new_log = "New log: " + str(datetime.datetime.now())
-                fp.write(f"{new_log}\n")
-        else:
-            model_log = str(datetime.datetime.now()).replace(" ", "_").replace(":", "-")[:19]
-            self.log_path = self.model_dir + model_log + ".txt"
-            self.model_path = self.model_dir + model_log + ".pth"
-            with open(self.log_path, 'a') as fp:
-                new_log = "New log: " + str(datetime.datetime.now())
-                fp.write(f"{new_log}\n")
-                pass
+            raise ValueError("Need to specify either a model_name or a pretrained_model")
+        with open(self.log_path, 'a') as fp:
+            fp.write(f"\n")
+            fp.write(f"\n")
+            fp.write(f"\n")
+            new_log = "New log: " + str(datetime.datetime.now())
+            fp.write(f"{new_log}\n")
+            
+        if self.config['pretrained_model']:
+            self.model.load_state_dict(torch.load(self.config['pretrained_model']))
+
+        self.optimizer = self.config['optimizer'](self.model.parameters(), **self.config['optimkwargs'])
+        self.scheduler = self.config['scheduler'](self.optimizer, **self.config['schedulerkwargs'])
+
         self.best_model = copy.deepcopy(self.model)
 
     def logit_transformation(self, yp):
         return yp.max(dim=1)[1]
 
-    def epoch(self, loader, train=False):
-        total_loss, total_err = 0., 0.
+    def epoch(self, loader, train=False, attack=None, thres=0):
+        total_err, total_loss = 0., 0.
         for x,y in loader:
-            x,y = x.to(self.device), y.to(self.device)
+            x, y = x.to(self.device), y.to(self.device)
+            if attack:
+                rand = torch.rand(1)
+                if rand > thres:
+                    x = attack(x, y).type(torch.FloatTensor).to(self.device)
             yp = self.model(x)
-            try:
-                #loss = self.criterion(yp, y)
-                loss = torch.nn.CrossEntropyLoss()(yp, y)
-            except RuntimeError:
-                print(yp.shape, y.shape)
-                loss = torch.nn.CrossEntropyLoss()(yp, y)
-                #loss = self.criterion(yp, y)
+            loss = self.criterion(yp, y)
             if train:
                 self.optimizer.zero_grad()
                 loss.backward()
@@ -75,72 +71,82 @@ class Model:
             torch.cuda.empty_cache()
         return total_err / len(loader.dataset), total_loss / len(loader.dataset)
 
-    def train(self, epochs, train_loader, test_loader):
+    def train(self, train_loader, test_loader, ):
         acc = 0
-        train_info = ['Training_with']
-        train_info.append(str(self.model))
-        train_info.append("Epochs: {}".format(epochs))
-        train_info.append("Loss: {}".format(self.criterion))
-        train_info.append(self.optimizer)
-        train_info.append(self.scheduler)
-        train_info.append("Extra info:")
+        train_info = ['TRAINING WITH']
+        train_info.append(" MODEL")
+        train_info.append(self.model)
+        train_info.append(" MODEL")
+        for elem in self.config:
+            train_info.append("{}: {}".format(elem, self.config[elem]))
         with open(self.log_path, 'a') as fp:
             for item in train_info:
                 print(item)
                 fp.write(f"{item}\n")
             pass
-        for epoch in range(0, epochs):
+
+        attack = self.config['attack'](copy.deepcopy(self.model), **self.config['attackkwargs'])
+        for epoch in range(0, self.config['epochs']):
           now = datetime.datetime.now().timestamp()
-          train_err, train_loss = self.epoch(train_loader, train=True)
-          test_err, test_loss = self.epoch(test_loader)
-          wandb.log({
-              "Train error": train_err,
-              "Train loss": train_loss,
-              "Test error": test_err,
-              "Test loss": test_loss
-          })
+          train_err, train_loss = self.epoch(train_loader, train=True, attack=attack, thres=self.config['thres'])
+          test_err, test_loss = self.epoch(test_loader, attack=attack, thres=self.config['thres'])
           if self.scheduler:
               self.scheduler.step()
           torch.cuda.empty_cache()
           after = datetime.datetime.now().timestamp()
+          epoch_info = ["{}  Train_accuracy: {:.6f} Train_loss:  {:.6f}  Test_accuracy: {:.6f}  Test_loss: {:.6f}  Time: {:.2f} s".format(epoch, 1-train_err, train_loss, 1-test_err, test_loss, after-now)]
           new_acc = 1 - test_err
           if new_acc > acc:
-              torch.save(self.model.state_dict(), self.model_path)
+              torch.save(self.model.state_dict(), self.defense_path)
               acc = new_acc
-          epoch_info = ["{}  Train_accuracy: {:.6f} Train_loss:  {:.6f}  Test_accuracy: {:.6f}  Test_loss: {:.6f}  Time: {:.2f} s".format(epoch, 1-train_err, train_loss, 1-test_err, test_loss, after-now)]
-          epoch_info.append("   Model saved at: {}".format(self.model_path))
+              epoch_info.append("   Model saved at: {}".format(self.defense_path))
           with open(self.log_path, 'a') as fp:
               for item in [epoch_info]:
                   print(item)
                   fp.write(f"{item}\n")
               pass
 
-
-    def validation_epoch(self, loader):
+    def validation_epoch(self, loader, attack, img_lim=-1):
         total_err = 0.
+        i = 0
         for x, y in loader:
-            x,y = x.to(self.device), y.to(self.device)
+            x, y = x.to(self.device), y.to(self.device)
+            if attack:
+                x = attack(x, y).type(torch.FloatTensor).to(self.device)
             yp = self.model(x)
             yp = self.logit_transformation(yp)
             total_err += (yp != y).sum().item()
+            i += len(x)
+            if i >= img_lim and img_lim > 0:
+                return total_err / (i)
         return total_err / len(loader.dataset)
 
-    def validate(self, val_loader):
-        now = datetime.datetime.now().timestamp()
-        test_err = self.validation_epoch(val_loader)
-        after = datetime.datetime.now().timestamp()
-        val_epoch_info = "    Acc: {} in {} s".format(round((1-test_err), 4), after-now)
+    def validate(self, val_loader, list_of_attacks = [], img_lim=-1):
         val_info = ['\n']
-        val_info.append('Validating_with: ')
-        val_info.append(str(self.model))
-        val_info.append("Model loaded from: {}".format(self.model_path))
-        val_info.append(val_epoch_info)
-        val_info.append("Extra info: ")
+        val_info.append("VALIDATING WITH:")
+        val_info.append(' MODEL')
+        val_info.append(self.model)
+        val_info.append(' MODEL')
+        val_info.append('Validation info:')
+        for elem in self.config:
+            val_info.append("{}: {}".format(elem, self.config[elem]))
+
         with open(self.log_path, 'a') as fp:
             for item in val_info:
                 print(item)
                 fp.write(f"{item}\n")
             pass
+        for attack in list_of_attacks:
+            now = datetime.datetime.now().timestamp()
+            val_epoch_info = ["Adversarial accuracy against {}".format(attack)]
+            test_err = self.validation_epoch(val_loader, attack=attack, img_lim=img_lim)
+            after = datetime.datetime.now().timestamp()
+            val_epoch_info.append("    Acc: {} in {} s".format(round((1 - test_err), 4), after - now))
+            with open(self.log_path, 'a') as fp:
+                for item in val_epoch_info:
+                    print(item)
+                    fp.write(f"{item}\n")
+                pass
 
     def count_parameters(self):
         table = PrettyTable(["Modules", "Parameters"])

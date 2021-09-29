@@ -1,0 +1,84 @@
+New log: 2021-09-16 13:08:16.027445
+TRAINING WITH
+ MODEL
+CNN(
+  (conv1): Conv2d(1, 32, kernel_size=(5, 5), stride=(1, 1))
+  (relu): ReLU()
+  (conv2): Conv2d(32, 32, kernel_size=(5, 5), stride=(1, 1))
+  (batchnorm1): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  (maxpool): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  (conv3): Conv2d(32, 64, kernel_size=(3, 3), stride=(1, 1))
+  (conv4): Conv2d(64, 64, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1))
+  (batchnorm2): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  (batch2): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  (dropout): Dropout(p=0.25, inplace=False)
+  (classifier): Sequential(
+    (0): Flatten(start_dim=1, end_dim=-1)
+    (1): Linear(in_features=256, out_features=10, bias=True)
+  )
+)
+Model log: None
+ MODEL
+Training info:
+Epochs: 20
+Loss: CrossEntropyLoss()
+Adam (
+Parameter Group 0
+    amsgrad: False
+    betas: (0.9, 0.999)
+    eps: 1e-08
+    lr: 0.001
+    weight_decay: 0
+)
+None
+Extra info:
+['0  Train_accuracy: 0.935400 Train_loss:  0.244885  Test_accuracy: 0.982600  Test_loss: 0.061833  Time: 15.05 s', '   Model saved at: /project/6043718/javipt21/AGS/Experiment_logs/nominal-mnist/nominal-mnist_2021-09-16_13-08-16.pth']
+['1  Train_accuracy: 0.983517 Train_loss:  0.057540  Test_accuracy: 0.988000  Test_loss: 0.041550  Time: 14.91 s', '   Model saved at: /project/6043718/javipt21/AGS/Experiment_logs/nominal-mnist/nominal-mnist_2021-09-16_13-08-16.pth']
+['2  Train_accuracy: 0.987350 Train_loss:  0.042555  Test_accuracy: 0.989200  Test_loss: 0.036922  Time: 15.12 s', '   Model saved at: /project/6043718/javipt21/AGS/Experiment_logs/nominal-mnist/nominal-mnist_2021-09-16_13-08-16.pth']
+['3  Train_accuracy: 0.989417 Train_loss:  0.034895  Test_accuracy: 0.990000  Test_loss: 0.034034  Time: 15.00 s', '   Model saved at: /project/6043718/javipt21/AGS/Experiment_logs/nominal-mnist/nominal-mnist_2021-09-16_13-08-16.pth']
+['4  Train_accuracy: 0.990567 Train_loss:  0.029946  Test_accuracy: 0.990000  Test_loss: 0.035763  Time: 15.25 s', '   Model saved at: /project/6043718/javipt21/AGS/Experiment_logs/nominal-mnist/nominal-mnist_2021-09-16_13-08-16.pth']
+['5  Train_accuracy: 0.991950 Train_loss:  0.027028  Test_accuracy: 0.989200  Test_loss: 0.030800  Time: 15.08 s', '   Model saved at: /project/6043718/javipt21/AGS/Experiment_logs/nominal-mnist/nominal-mnist_2021-09-16_13-08-16.pth']
+['6  Train_accuracy: 0.992417 Train_loss:  0.023800  Test_accuracy: 0.990800  Test_loss: 0.029631  Time: 14.97 s', '   Model saved at: /project/6043718/javipt21/AGS/Experiment_logs/nominal-mnist/nominal-mnist_2021-09-16_13-08-16.pth']
+['7  Train_accuracy: 0.993333 Train_loss:  0.022203  Test_accuracy: 0.990000  Test_loss: 0.028808  Time: 15.22 s', '   Model saved at: /project/6043718/javipt21/AGS/Experiment_logs/nominal-mnist/nominal-mnist_2021-09-16_13-08-16.pth']
+['8  Train_accuracy: 0.993133 Train_loss:  0.021323  Test_accuracy: 0.991800  Test_loss: 0.026825  Time: 14.90 s', '   Model saved at: /project/6043718/javipt21/AGS/Experiment_logs/nominal-mnist/nominal-mnist_2021-09-16_13-08-16.pth']
+['9  Train_accuracy: 0.993667 Train_loss:  0.019704  Test_accuracy: 0.992400  Test_loss: 0.021391  Time: 15.36 s', '   Model saved at: /project/6043718/javipt21/AGS/Experiment_logs/nominal-mnist/nominal-mnist_2021-09-16_13-08-16.pth']
+['10  Train_accuracy: 0.993967 Train_loss:  0.017657  Test_accuracy: 0.991600  Test_loss: 0.022241  Time: 14.98 s', '   Model saved at: /project/6043718/javipt21/AGS/Experiment_logs/nominal-mnist/nominal-mnist_2021-09-16_13-08-16.pth']
+['11  Train_accuracy: 0.994500 Train_loss:  0.017325  Test_accuracy: 0.993200  Test_loss: 0.023380  Time: 14.99 s', '   Model saved at: /project/6043718/javipt21/AGS/Experiment_logs/nominal-mnist/nominal-mnist_2021-09-16_13-08-16.pth']
+['12  Train_accuracy: 0.995333 Train_loss:  0.014450  Test_accuracy: 0.991000  Test_loss: 0.026213  Time: 15.10 s', '   Model saved at: /project/6043718/javipt21/AGS/Experiment_logs/nominal-mnist/nominal-mnist_2021-09-16_13-08-16.pth']
+['13  Train_accuracy: 0.995533 Train_loss:  0.014048  Test_accuracy: 0.992200  Test_loss: 0.024098  Time: 15.00 s', '   Model saved at: /project/6043718/javipt21/AGS/Experiment_logs/nominal-mnist/nominal-mnist_2021-09-16_13-08-16.pth']
+['14  Train_accuracy: 0.994900 Train_loss:  0.014885  Test_accuracy: 0.993400  Test_loss: 0.022030  Time: 15.11 s', '   Model saved at: /project/6043718/javipt21/AGS/Experiment_logs/nominal-mnist/nominal-mnist_2021-09-16_13-08-16.pth']
+['15  Train_accuracy: 0.995650 Train_loss:  0.012958  Test_accuracy: 0.993200  Test_loss: 0.026724  Time: 14.99 s', '   Model saved at: /project/6043718/javipt21/AGS/Experiment_logs/nominal-mnist/nominal-mnist_2021-09-16_13-08-16.pth']
+['16  Train_accuracy: 0.995950 Train_loss:  0.011614  Test_accuracy: 0.992400  Test_loss: 0.027075  Time: 14.91 s', '   Model saved at: /project/6043718/javipt21/AGS/Experiment_logs/nominal-mnist/nominal-mnist_2021-09-16_13-08-16.pth']
+['17  Train_accuracy: 0.996250 Train_loss:  0.011706  Test_accuracy: 0.992000  Test_loss: 0.025922  Time: 15.31 s', '   Model saved at: /project/6043718/javipt21/AGS/Experiment_logs/nominal-mnist/nominal-mnist_2021-09-16_13-08-16.pth']
+['18  Train_accuracy: 0.996067 Train_loss:  0.011558  Test_accuracy: 0.993600  Test_loss: 0.026601  Time: 14.97 s', '   Model saved at: /project/6043718/javipt21/AGS/Experiment_logs/nominal-mnist/nominal-mnist_2021-09-16_13-08-16.pth']
+['19  Train_accuracy: 0.995683 Train_loss:  0.012514  Test_accuracy: 0.993600  Test_loss: 0.023701  Time: 14.99 s', '   Model saved at: /project/6043718/javipt21/AGS/Experiment_logs/nominal-mnist/nominal-mnist_2021-09-16_13-08-16.pth']
+
+
+VALIDATING WITH:
+ MODEL
+CNN(
+  (conv1): Conv2d(1, 32, kernel_size=(5, 5), stride=(1, 1))
+  (relu): ReLU()
+  (conv2): Conv2d(32, 32, kernel_size=(5, 5), stride=(1, 1))
+  (batchnorm1): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  (maxpool): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  (conv3): Conv2d(32, 64, kernel_size=(3, 3), stride=(1, 1))
+  (conv4): Conv2d(64, 64, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1))
+  (batchnorm2): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  (batch2): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  (dropout): Dropout(p=0.25, inplace=False)
+  (classifier): Sequential(
+    (0): Flatten(start_dim=1, end_dim=-1)
+    (1): Linear(in_features=256, out_features=10, bias=True)
+  )
+)
+Model log: None
+ MODEL
+Validation info:
+Model loaded from: /project/6043718/javipt21/AGS/Experiment_logs/nominal-mnist/nominal-mnist_2021-09-16_13-08-16.pth
+Adversarial accuracy against None
+    Acc: 0.9918 in 0.7524101734161377 s
+Adversarial accuracy against FGSM(model_name=CNN, device=cuda:0, eps=0.3, attack_mode=default, return_type=float)
+    Acc: 0.191 in 0.9597668647766113 s
+Adversarial accuracy against PGD(model_name=CNN, device=cuda:0, eps=0.3, alpha=0.1, steps=50, random_start=False, attack_mode=default, return_type=float)
+    Acc: 0.0 in 8.012662172317505 s

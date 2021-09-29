@@ -1,0 +1,232 @@
+New log: 2021-09-16 13:08:26.290663
+TRAINING WITH
+ MODEL
+ResNet9(
+  (conv1): Sequential(
+    (0): Conv2d(3, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (2): ReLU(inplace=True)
+  )
+  (conv2): Sequential(
+    (0): Conv2d(64, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (2): ReLU(inplace=True)
+    (3): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  )
+  (res1): Sequential(
+    (0): Sequential(
+      (0): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      (1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (2): ReLU(inplace=True)
+    )
+    (1): Sequential(
+      (0): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      (1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (2): ReLU(inplace=True)
+    )
+  )
+  (conv3): Sequential(
+    (0): Conv2d(128, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (2): ReLU(inplace=True)
+    (3): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  )
+  (conv4): Sequential(
+    (0): Conv2d(256, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (1): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (2): ReLU(inplace=True)
+    (3): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  )
+  (res2): Sequential(
+    (0): Sequential(
+      (0): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      (1): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (2): ReLU(inplace=True)
+    )
+    (1): Sequential(
+      (0): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      (1): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (2): ReLU(inplace=True)
+    )
+  )
+  (classifier): Sequential(
+    (0): MaxPool2d(kernel_size=4, stride=4, padding=0, dilation=1, ceil_mode=False)
+    (1): Flatten(start_dim=1, end_dim=-1)
+    (2): Linear(in_features=512, out_features=10, bias=True)
+  )
+)
+Model log: None
+ MODEL
+Training info:
+Epochs: 20
+Loss: CrossEntropyLoss()
+Adam (
+Parameter Group 0
+    amsgrad: False
+    betas: (0.9, 0.999)
+    eps: 1e-08
+    lr: 0.001
+    weight_decay: 0
+)
+None
+Extra info:
+['0  Train_accuracy: 0.630920 Train_loss:  1.052490  Test_accuracy: 0.727800  Test_loss: 0.778505  Time: 31.68 s', '   Model saved at: /project/6043718/javipt21/AGS/Experiment_logs/nominal-cifar10/nominal-cifar10_2021-09-16_13-08-26.pth']
+['1  Train_accuracy: 0.798520 Train_loss:  0.582586  Test_accuracy: 0.810600  Test_loss: 0.565060  Time: 31.80 s', '   Model saved at: /project/6043718/javipt21/AGS/Experiment_logs/nominal-cifar10/nominal-cifar10_2021-09-16_13-08-26.pth']
+['2  Train_accuracy: 0.858620 Train_loss:  0.410361  Test_accuracy: 0.830400  Test_loss: 0.490901  Time: 31.43 s', '   Model saved at: /project/6043718/javipt21/AGS/Experiment_logs/nominal-cifar10/nominal-cifar10_2021-09-16_13-08-26.pth']
+['3  Train_accuracy: 0.899240 Train_loss:  0.293430  Test_accuracy: 0.838400  Test_loss: 0.477252  Time: 31.88 s', '   Model saved at: /project/6043718/javipt21/AGS/Experiment_logs/nominal-cifar10/nominal-cifar10_2021-09-16_13-08-26.pth']
+['4  Train_accuracy: 0.929940 Train_loss:  0.201621  Test_accuracy: 0.861800  Test_loss: 0.421137  Time: 31.83 s', '   Model saved at: /project/6043718/javipt21/AGS/Experiment_logs/nominal-cifar10/nominal-cifar10_2021-09-16_13-08-26.pth']
+['5  Train_accuracy: 0.957640 Train_loss:  0.124356  Test_accuracy: 0.859400  Test_loss: 0.437784  Time: 31.87 s', '   Model saved at: /project/6043718/javipt21/AGS/Experiment_logs/nominal-cifar10/nominal-cifar10_2021-09-16_13-08-26.pth']
+['6  Train_accuracy: 0.975300 Train_loss:  0.078227  Test_accuracy: 0.859600  Test_loss: 0.460367  Time: 32.01 s', '   Model saved at: /project/6043718/javipt21/AGS/Experiment_logs/nominal-cifar10/nominal-cifar10_2021-09-16_13-08-26.pth']
+['7  Train_accuracy: 0.981780 Train_loss:  0.056687  Test_accuracy: 0.846000  Test_loss: 0.570962  Time: 31.79 s', '   Model saved at: /project/6043718/javipt21/AGS/Experiment_logs/nominal-cifar10/nominal-cifar10_2021-09-16_13-08-26.pth']
+['8  Train_accuracy: 0.980900 Train_loss:  0.057747  Test_accuracy: 0.867200  Test_loss: 0.480137  Time: 31.75 s', '   Model saved at: /project/6043718/javipt21/AGS/Experiment_logs/nominal-cifar10/nominal-cifar10_2021-09-16_13-08-26.pth']
+['9  Train_accuracy: 0.980200 Train_loss:  0.060656  Test_accuracy: 0.869600  Test_loss: 0.518347  Time: 31.51 s', '   Model saved at: /project/6043718/javipt21/AGS/Experiment_logs/nominal-cifar10/nominal-cifar10_2021-09-16_13-08-26.pth']
+['10  Train_accuracy: 0.981900 Train_loss:  0.054629  Test_accuracy: 0.870200  Test_loss: 0.505700  Time: 31.88 s', '   Model saved at: /project/6043718/javipt21/AGS/Experiment_logs/nominal-cifar10/nominal-cifar10_2021-09-16_13-08-26.pth']
+['11  Train_accuracy: 0.991820 Train_loss:  0.026658  Test_accuracy: 0.873400  Test_loss: 0.491353  Time: 31.55 s', '   Model saved at: /project/6043718/javipt21/AGS/Experiment_logs/nominal-cifar10/nominal-cifar10_2021-09-16_13-08-26.pth']
+['12  Train_accuracy: 0.984220 Train_loss:  0.045713  Test_accuracy: 0.860800  Test_loss: 0.572692  Time: 32.16 s', '   Model saved at: /project/6043718/javipt21/AGS/Experiment_logs/nominal-cifar10/nominal-cifar10_2021-09-16_13-08-26.pth']
+['13  Train_accuracy: 0.986560 Train_loss:  0.039950  Test_accuracy: 0.869400  Test_loss: 0.527325  Time: 31.50 s', '   Model saved at: /project/6043718/javipt21/AGS/Experiment_logs/nominal-cifar10/nominal-cifar10_2021-09-16_13-08-26.pth']
+['14  Train_accuracy: 0.988060 Train_loss:  0.035368  Test_accuracy: 0.873200  Test_loss: 0.580699  Time: 32.04 s', '   Model saved at: /project/6043718/javipt21/AGS/Experiment_logs/nominal-cifar10/nominal-cifar10_2021-09-16_13-08-26.pth']
+['15  Train_accuracy: 0.991080 Train_loss:  0.027257  Test_accuracy: 0.869800  Test_loss: 0.602164  Time: 31.77 s', '   Model saved at: /project/6043718/javipt21/AGS/Experiment_logs/nominal-cifar10/nominal-cifar10_2021-09-16_13-08-26.pth']
+['16  Train_accuracy: 0.988300 Train_loss:  0.034172  Test_accuracy: 0.870600  Test_loss: 0.583776  Time: 31.95 s', '   Model saved at: /project/6043718/javipt21/AGS/Experiment_logs/nominal-cifar10/nominal-cifar10_2021-09-16_13-08-26.pth']
+['17  Train_accuracy: 0.989400 Train_loss:  0.031360  Test_accuracy: 0.873200  Test_loss: 0.604525  Time: 31.96 s', '   Model saved at: /project/6043718/javipt21/AGS/Experiment_logs/nominal-cifar10/nominal-cifar10_2021-09-16_13-08-26.pth']
+['18  Train_accuracy: 0.989800 Train_loss:  0.029256  Test_accuracy: 0.875400  Test_loss: 0.575927  Time: 31.61 s', '   Model saved at: /project/6043718/javipt21/AGS/Experiment_logs/nominal-cifar10/nominal-cifar10_2021-09-16_13-08-26.pth']
+['19  Train_accuracy: 0.996400 Train_loss:  0.011455  Test_accuracy: 0.878200  Test_loss: 0.606940  Time: 31.32 s', '   Model saved at: /project/6043718/javipt21/AGS/Experiment_logs/nominal-cifar10/nominal-cifar10_2021-09-16_13-08-26.pth']
+
+
+VALIDATING WITH:
+ MODEL
+ResNet9(
+  (conv1): Sequential(
+    (0): Conv2d(3, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (2): ReLU(inplace=True)
+  )
+  (conv2): Sequential(
+    (0): Conv2d(64, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (2): ReLU(inplace=True)
+    (3): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  )
+  (res1): Sequential(
+    (0): Sequential(
+      (0): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      (1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (2): ReLU(inplace=True)
+    )
+    (1): Sequential(
+      (0): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      (1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (2): ReLU(inplace=True)
+    )
+  )
+  (conv3): Sequential(
+    (0): Conv2d(128, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (2): ReLU(inplace=True)
+    (3): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  )
+  (conv4): Sequential(
+    (0): Conv2d(256, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (1): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (2): ReLU(inplace=True)
+    (3): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  )
+  (res2): Sequential(
+    (0): Sequential(
+      (0): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      (1): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (2): ReLU(inplace=True)
+    )
+    (1): Sequential(
+      (0): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      (1): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (2): ReLU(inplace=True)
+    )
+  )
+  (classifier): Sequential(
+    (0): MaxPool2d(kernel_size=4, stride=4, padding=0, dilation=1, ceil_mode=False)
+    (1): Flatten(start_dim=1, end_dim=-1)
+    (2): Linear(in_features=512, out_features=10, bias=True)
+  )
+)
+Model log: None
+ MODEL
+Validation info:
+Model loaded from: /project/6043718/javipt21/AGS/Experiment_logs/nominal-cifar10/nominal-cifar10_2021-09-16_13-08-26.pth
+Adversarial accuracy against None
+    Acc: 0.8708 in 1.6826801300048828 s
+Adversarial accuracy against FGSM(model_name=ResNet9, device=cuda:0, eps=0.3, attack_mode=default, return_type=float)
+    Acc: 0.0666 in 3.601780891418457 s
+Adversarial accuracy against PGD(model_name=ResNet9, device=cuda:0, eps=0.3, alpha=0.1, steps=50, random_start=False, attack_mode=default, return_type=float)
+    Acc: 0.0 in 93.06460189819336 s
+
+
+
+New log: 2021-09-18 10:54:26.867932
+
+
+VALIDATING WITH:
+ MODEL
+ResNet9(
+  (conv1): Sequential(
+    (0): Conv2d(3, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (2): ReLU(inplace=True)
+  )
+  (conv2): Sequential(
+    (0): Conv2d(64, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (2): ReLU(inplace=True)
+    (3): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  )
+  (res1): Sequential(
+    (0): Sequential(
+      (0): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      (1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (2): ReLU(inplace=True)
+    )
+    (1): Sequential(
+      (0): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      (1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (2): ReLU(inplace=True)
+    )
+  )
+  (conv3): Sequential(
+    (0): Conv2d(128, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (2): ReLU(inplace=True)
+    (3): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  )
+  (conv4): Sequential(
+    (0): Conv2d(256, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (1): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (2): ReLU(inplace=True)
+    (3): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  )
+  (res2): Sequential(
+    (0): Sequential(
+      (0): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      (1): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (2): ReLU(inplace=True)
+    )
+    (1): Sequential(
+      (0): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      (1): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (2): ReLU(inplace=True)
+    )
+  )
+  (classifier): Sequential(
+    (0): MaxPool2d(kernel_size=4, stride=4, padding=0, dilation=1, ceil_mode=False)
+    (1): Flatten(start_dim=1, end_dim=-1)
+    (2): Linear(in_features=512, out_features=10, bias=True)
+  )
+)
+Model log: None
+ MODEL
+Validation info:
+Model loaded from: /project/6043718/javipt21/AGS/Experiment_logs/nominal-cifar10/nominal-cifar10_2021-09-16_13-08-26.pth
+Adversarial accuracy against None
+    Acc: 0.879 in 1.2098259925842285 s
+Adversarial accuracy against FGSM(model_name=ResNet9, device=cuda:0, eps=0.03137254901960784, attack_mode=default, return_type=float)
+    Acc: 0.0798 in 1.9188330173492432 s
+Adversarial accuracy against PGD(model_name=ResNet9, device=cuda:0, eps=0.03137254901960784, alpha=0.1, steps=50, random_start=False, attack_mode=default, return_type=float)
+    Acc: 0.07 in 35.63490104675293 s
