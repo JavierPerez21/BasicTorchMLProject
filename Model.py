@@ -44,7 +44,8 @@ class Model:
             self.model.load_state_dict(torch.load(self.config['pretrained_model']))
 
         self.optimizer = self.config['optimizer'](self.model.parameters(), **self.config['optimkwargs'])
-        self.scheduler = self.config['scheduler'](self.optimizer, **self.config['schedulerkwargs'])
+        if self.config['scheduler']:
+            self.scheduler = self.config['scheduler'](self.optimizer, **self.config['schedulerkwargs'])
 
         self.best_model = copy.deepcopy(self.model)
 
