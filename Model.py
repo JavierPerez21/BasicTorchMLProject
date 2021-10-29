@@ -24,7 +24,7 @@ class Model:
         self.config = config
         self.device = self.config['device']
         self.criterion = self.config['criterion']
-        if torch.cuda().device_count() > 1:
+        if torch.cuda.device_count() > 1:
             self.model = torch.nn.DataParallel(architecture.cuda()).to(self.device)
         else:
             self.model = architecture.to(self.device)
