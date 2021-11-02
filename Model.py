@@ -101,7 +101,10 @@ class Model:
           epoch_info = ["{}  Train_accuracy: {:.6f} Train_loss:  {:.6f}  Test_accuracy: {:.6f}  Test_loss: {:.6f}  Time: {:.2f} s".format(epoch, 1-train_err, train_loss, 1-test_err, test_loss, after-now)]
           new_acc = 1 - test_err
           if new_acc > acc:
-              torch.save(self.model.state_dict(), self.defense_path)
+              if torch.cuda.device_count() > 1:
+                  torch.save(self.model.module.state_dict(), self.defense_path)
+              else:
+                  torch.save(self.model.state_dict(), self.defense_path)
               acc = new_acc
               epoch_info.append("   Model saved at: {}".format(self.defense_path))
           with open(self.log_path, 'a') as fp:
