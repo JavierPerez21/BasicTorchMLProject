@@ -24,10 +24,7 @@ class Model:
         self.config = config
         self.device = self.config['device']
         self.criterion = self.config['criterion']
-        if torch.cuda.device_count() > 1:
-            self.model = torch.nn.DataParallel(architecture.cuda()).to(self.device)
-        else:
-            self.model = architecture.to(self.device)
+        self.model = architecture.to(self.device)
         if self.config['model_name']:
             self.log_path = self.config['experiment_path'] + self.config['model_name'] + ".txt"
             self.model_path = self.config['experiment_path'] + self.config['model_name'] + ".pth"
@@ -51,6 +48,11 @@ class Model:
             self.scheduler = self.config['scheduler'](self.optimizer, **self.config['schedulerkwargs'])
 
         self.best_model = copy.deepcopy(self.model)
+        
+        if torch.cuda.device_count() > 1:
+            self.model = torch.nn.DataParallel(architecture.cuda())
+        else:
+            self.model = architecture.to(self.device)
 
     def logit_transformation(self, yp):
         return yp.max(dim=1)[1]
